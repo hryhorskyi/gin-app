@@ -47,7 +47,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/subscribe": {
+        "/api/subscribe": {
             "post": {
                 "description": "Subscribe an email to receive daily updates on the USD to UAH exchange rate",
                 "consumes": [
@@ -106,6 +106,60 @@ const docTemplate = `{
                             }
                         }
                     }
+                }
+            }
+        },
+        "/api/subscriptions": {
+            "get": {
+                "description": "Get all email subscriptions from the database",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "subscription"
+                ],
+                "summary": "Get all subscriptions",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Subscription"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Subscription": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
         }

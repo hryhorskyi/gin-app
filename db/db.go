@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
+	"github.com/hryhorskyi/gin-app/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
@@ -32,9 +34,15 @@ func Init() {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	migrate()
+	DB.LogMode(true)
+
+	DB.AutoMigrate(&models.Subscription{})
+
+	DB.Callback().Update().Register("gorm:update_time_stamp", updateTimestampForUpdateCallback)
 }
 
-func migrate() {
-	DB.Exec("CREATE TABLE IF NOT EXISTS subscriptions (id SERIAL PRIMARY KEY, email TEXT UNIQUE NOT NULL, created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP)")
+func updateTimestampForUpdateCallback(scope *gorm.Scope) {
+	if !scope.HasError() {
+		scope.SetColumn("UpdatedAt", time.Now())
+	}
 }

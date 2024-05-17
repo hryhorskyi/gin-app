@@ -19,7 +19,7 @@ import (
 // @Failure 400 {object} map[string]string
 // @Failure 409 {object} map[string]string
 // @Failure 500 {object} map[string]string
-// @Router /subscribe [post]
+// @Router /api/subscribe [post]
 func Subscribe(c *gin.Context) {
 	email := c.PostForm("email")
 	if email == "" {
@@ -38,4 +38,21 @@ func Subscribe(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusConflict, gin.H{"error": "E-mail already exists"})
 	}
+}
+
+// GetSubscriptions godoc
+// @Summary Get all subscriptions
+// @Description Get all email subscriptions from the database
+// @Tags subscription
+// @Produce json
+// @Success 200 {array} models.Subscription
+// @Failure 500 {object} map[string]string
+// @Router /api/subscriptions [get]
+func GetSubscriptions(c *gin.Context) {
+	var subscriptions []models.Subscription
+	if err := db.DB.Find(&subscriptions).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch subscriptions"})
+		return
+	}
+	c.JSON(http.StatusOK, subscriptions)
 }
