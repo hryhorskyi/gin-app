@@ -1,0 +1,73 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for GSES BTC Application.
+  title: GSES BTC Application API
+  version: "1.0"
+paths:
+  /api/rate:
+    get:
+      description: Get the current exchange rate of USD to UAH using a third-party
+        API
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: number
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get current USD to UAH exchange rate
+      tags:
+      - rate
+  /subscribe:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Subscribe an email to receive daily updates on the USD to UAH exchange
+        rate
+      parameters:
+      - description: Email Address
+        in: formData
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Subscribe to daily exchange rate updates
+      tags:
+      - subscription
+swagger: "2.0"
