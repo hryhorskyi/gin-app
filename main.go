@@ -31,7 +31,9 @@ func main() {
 
 	r.GET("/api/rate", handlers.GetRate)
 	r.POST("/api/subscribe", handlers.Subscribe)
-	r.GET("/api/subscriptions", handlers.GetSubscriptions)
+
+	// used this endpoint below to check subscriptions
+	// r.GET("/api/subscriptions", handlers.GetSubscriptions)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

@@ -1,18 +1,4 @@
 basePath: /
-definitions:
-  models.Subscription:
-    properties:
-      created_at:
-        type: string
-      deleted_at:
-        type: string
-      email:
-        type: string
-      id:
-        type: integer
-      updated_at:
-        type: string
-    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -82,27 +68,6 @@ paths:
               type: string
             type: object
       summary: Subscribe to daily exchange rate updates
-      tags:
-      - subscription
-  /api/subscriptions:
-    get:
-      description: Get all email subscriptions from the database
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Subscription'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Get all subscriptions
       tags:
       - subscription
 swagger: "2.0"

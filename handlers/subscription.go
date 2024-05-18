@@ -40,6 +40,8 @@ func Subscribe(c *gin.Context) {
 	}
 }
 
+/*
+
 // GetSubscriptions godoc
 // @Summary Get all subscriptions
 // @Description Get all email subscriptions from the database
@@ -56,3 +58,5 @@ func GetSubscriptions(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, subscriptions)
 }
+
+*/
