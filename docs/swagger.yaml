@@ -19,8 +19,8 @@ paths:
             additionalProperties:
               type: number
             type: object
-        "500":
-          description: Internal Server Error
+        "400":
+          description: Bad Request
           schema:
             additionalProperties:
               type: string
